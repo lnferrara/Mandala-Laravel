@@ -1,0 +1,24 @@
+
+
+svg{
+    color:white;
+}
+
+svg:hover{
+    opacity:0.9;
+}
+
+svg:focus{
+    color: white;
+}
+
+.pepe{
+    border: 2px solid red;
+}
+
+.searchbar{
+    height: 40px;;
+    margin-left: 20rem;
+    margin-top: 1.5rem;
+    border-radius: 5%;
+}
