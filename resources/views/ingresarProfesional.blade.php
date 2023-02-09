@@ -58,21 +58,7 @@
                             </select>
                            
                         </div>
-                        <div class="mb-3">
-                            <label for="formGroupExampleInput2" class="form-label">Estado Civíl</label> <br>
-                            <select name="estadoCivil" id="">
-                                <option value="">Seleccione Estado</option>
-                                <option value="Soltero/a">Soltero/a</option>
-                                <option value="Casado/a">Casado/a</option>
-                                <option value="Divorciado/a">Divorciado/a</option>
-                                <option value="Viudo/a">Viudo/a</option>
-                                <option value="No definido/a">No definido/a</option>
-                                    
-                                
-
-                            </select>
-                           
-                        </div>
+                        
                         <br>
                         <button class="btn btn-dark btn-sm" >Ingresar</button> 
                         <a href="/profesionales" class="btn btn-secondary btn-sm"role="button">Volver</a>

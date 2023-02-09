@@ -12,10 +12,120 @@ svg:focus{
     color: white;
 }
 
-.pepe{
-    border: 2px solid red;
+.title{
+    font-weight: 800;
+    padding: .5rem;
+    margin: 1rem;
+    text-align: center;
+    font-size: 20px;
+}
+.title-section{
+font-weight: 800;
+text-shadow: -1px 3px 8px rgba(0,0,0,0.33);
+margin-bottom: .5rem;
 }
 
+hr{
+    margin-bottom: .5rem;
+}
+.p-section{
+font-size: 14px;
+color: rgb(196, 20, 20);
+font-weight: 600;
+
+}
+.p-section-ingreso{
+    font-size: 14px;
+color: rgb(4, 95, 11);
+font-weight: 600;
+}
+
+.buttons-div{
+    margin: .5rem;
+    display: flex;
+    width: auto;
+    justify-content: center;
+    
+}
+
+.button-gasto{
+    font-weight: 600;
+    width: 250px;
+    text-align: center;
+    padding: .5rem;
+   
+    margin: 1rem;
+    background-color: #b11515;
+    color: white;
+    border-radius: 5px;
+    box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.63);
+    -webkit-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.63);
+    -moz-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.63);
+}
+.button-ingreso{
+    font-weight: 600;
+    width: 250px;
+    text-align: center;
+    padding: .5rem;
+   
+    margin: 1rem;
+    background-color: #0b6103;
+    color: white;
+    border-radius: 5px;
+    box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.63);
+    -webkit-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.63);
+    -moz-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.63);
+}
+
+.button-gasto:hover{
+    background-color:white;
+    background-color: #b11515;
+    opacity: 0.8;
+    color: white;
+}
+.button-ingreso:hover{
+    background-color:white;
+    background-color: #0b6103;
+    opacity: 0.8;
+    color: white;
+    
+}
+
+.flex-box{
+    padding: 1rem;
+    display: grid;
+    justify-content: space-around;
+    width: auto;
+    align-items: center;
+    grid-template-columns: repeat(auto-fill,minmax(320px, 1fr));
+   
+}
+.section-gasto{
+    border: 1px solid #3d3838;
+    min-width:250px;
+    min-height: 250px;
+    padding: 1rem;
+    margin: .5rem;
+    text-align: center;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    border-radius: 15px;
+    box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.63);
+    -webkit-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.63);
+    -moz-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.63);
+}
+
+.total{
+    margin: 1rem;
+    font-weight: 800;
+    
+    padding: .2rem;
+    color: rgb(22, 21, 21);
+    background-color: rgba(0, 0, 0, 0.205);
+    box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.63);
+    -webkit-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.63);
+    -moz-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.63);
+}
 .searchbar{
     height: 40px;;
     margin-left: 20rem;

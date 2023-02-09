@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Empresa;
+use App\Models\Profesional;
 use Illuminate\Http\Request;
 
 class EmpresaController extends Controller
@@ -15,7 +16,10 @@ class EmpresaController extends Controller
     public function index()
     {   
         $empresas = Empresa::orderBy('nombreEmpresa', 'ASC')->paginate(10);
-        return view('adminEmpresas', ['empresas'=>$empresas]);
+        $profesionales = Profesional::get();
+
+        return view('adminEmpresas', ['empresas'=>$empresas,
+    'profesionales'=>$profesionales]);
     }
 
     /**
@@ -25,7 +29,7 @@ class EmpresaController extends Controller
      */
     public function create()
     {
-        return view('ingresarEmpresa');
+        
     }
 
     /**
@@ -69,11 +73,11 @@ class EmpresaController extends Controller
     {
         $this->validateForm($request);
         $empresa = new Empresa();
-        $empresa->nombreEmpresa = $razonSocial = $request->nameEmp;
+        $empresa->nombreEmpresa = $request->nameEmp;
         $empresa->cuit = $request->cuit;
         $empresa->save();
         return redirect('/empresas')
-        ->with(['mensaje'=> "La empresa $razonSocial ha sido ingresada con éxito."]);
+        ->with('mensaje', 'ingreso');;
     }
 
     /**
@@ -93,11 +97,11 @@ class EmpresaController extends Controller
      * @param  \App\Models\Empresa  $empresa
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+     public function edit($id)
     {
         $empresa = Empresa::find($id);
         return view('modificarEmpresa',['empresa'=>$empresa]);
-    }
+    } 
 
     /**
      * Update the specified resource in storage.
@@ -109,21 +113,21 @@ class EmpresaController extends Controller
     public function update(Request $request)
     {
         $this->validateForm($request);
-        $empresa = Empresa::find($request->Idempresa);
-        $empresa->nombreEmpresa =  $request->nameEmp;
+        $empresa = Empresa::find($request->Id);
+        $empresa->nombreEmpresa = $request->nameEmp;
         $empresa->cuit =  $request->cuit;
         $empresa->save();
         
         return redirect('/empresas')
-        ->with(['mensaje'=> "La empresa  ha sido modificada con éxito."]);
+        ->with('mensaje', 'editado');;
     }
 
 
-    public function confirmDelete($id)
+    /* public function confirmDelete($id)
     {
         $empresa = Empresa::find($id);
         return view('eliminarEmpresa', ['empresa'=>$empresa]);
-    }
+    } */
 
     /**
      * Remove the specified resource from storage.
@@ -133,8 +137,8 @@ class EmpresaController extends Controller
      */
     public function destroy(Request $request)
     {
-        $empresa = Empresa::destroy($request->Idempresa);
+        $empresa = Empresa::destroy($request->Id);
        return redirect('/empresas')
-        ->with(['danger'=>"La empresa ha sido eliminada con éxito."]);
+       ->with('mensaje', 'eliminado');
     }
 }

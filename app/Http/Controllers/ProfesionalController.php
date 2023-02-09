@@ -18,35 +18,36 @@ class ProfesionalController extends Controller
      */
     public function index()
     {
-        
 
+        $empresas = Empresa::all();
         $profesionales = Profesional::orderBy('nombre', 'ASC')
-        ->with(['getEmpresa'])
-        
-        ->paginate(10);
+            ->with(['getEmpresa'])->paginate(10);
+        return view('adminProfesionales', [
+            'profesionales' => $profesionales,
+            'empresas' => $empresas,
 
-        return view('adminProfesionales', ['profesionales' => $profesionales]);
+        ]);
     }
 
     public function birthday()
     {
-        
-       $date = Carbon::now()->format('Y-m-d');
-       $profesionales = Profesional::has('fechaNacimiento', '===', $date)->get();
-       dd($profesionales);
-       
-       return view('dashboard', ['profesionales'=> $profesionales]);
 
+        $date = Carbon::now()->format('m-d');
+        $date2 = Carbon::now()->format('Y-m');
 
-     
+        $profesionales = Profesional::whereDate('fechaNacimiento', 'like', '%' . $date)->get();
+        $ingresos = Profesional::whereDate('fechaIngreso', 'like', $date2 . '%')->get();
 
-
+        /* dd($date); */
+        return view('dashboard', [
+            'profesionales' => $profesionales,
+            'ingresos' => $ingresos,
+        ]);
     }
 
 
     public function newRevenue()
     {
-
     }
 
 
@@ -73,24 +74,23 @@ class ProfesionalController extends Controller
      */
     public function store(Request $request)
     {
-        $edad = Carbon::createFromDate($request->fechanac)->age;
+
         $this->validateForm($request);
-        
+
         $profesional = new Profesional();
         $profesional->nombre = $nameprof = $request->nameprof;
         $profesional->apellido = $surnameprof = $request->surnameprof;
         $profesional->dni =  $request->dniprof;
         $profesional->email =  $request->mailprof;
         $profesional->telefono =  $request->tel;
-        $profesional->estado =  $request->estadoCivil;
         $profesional->fechaIngreso =  $request->fechaprof;
         $profesional->fechaNacimiento =  $request->fechanac;
-        $profesional->edad = $edad;
+
         $profesional->Idempresa =  $request->empresa;
 
         $profesional->save();
         return redirect('/profesionales')
-            ->with(['mensaje' => " $nameprof $surnameprof ha sido ingresado con éxito."]);
+        ->with('mensaje', 'ingreso');;
     }
 
 
@@ -160,10 +160,10 @@ class ProfesionalController extends Controller
      */
     public function edit($id)
     {
-        $empresas = Empresa::all();
+        /* $empresas = Empresa::all();
         $profesional = Profesional::with(['getEmpresa'])->find($id);
 
-        return view('modificarProfesional', ['profesional' => $profesional, 'empresas' => $empresas]);
+        return view('modificarProfesional', ['profesional' => $profesional, 'empresas' => $empresas]); */
     }
 
     /**
@@ -175,33 +175,32 @@ class ProfesionalController extends Controller
      */
     public function update(Request $request)
     {
-        $edad = Carbon::createFromDate($request->fechanac)->age;
+
         $this->validateForm($request);
         $profesional = Profesional::find($request->Id);
-        $profesional->nombre = $nombre = $request->nameprof;
-        $profesional->apellido = $apellido = $request->surnameprof;
+        $profesional->nombre =  $request->nameprof;
+        $profesional->apellido =  $request->surnameprof;
         $profesional->telefono = $request->tel;
-        $profesional->estado =  $request->estadoCivil;
         $profesional->dni = $request->dniprof;
         $profesional->email = $request->mailprof;
         $profesional->fechaNacimiento =  $request->fechanac;
         $profesional->fechaIngreso = $request->fechaprof;
         $profesional->idempresa = $request->empresa;
-        $profesional->edad = $edad;
+
         $profesional->save();
-        return redirect('/profesionales')->with(['mensaje' => "$nombre $apellido editado correctamente."]);
+        return redirect('/profesionales')->with('mensaje', 'editado');
     }
 
-    // modifica comentarios
+    // modifica comentarios de ficha
 
     public function updateObs(Request $request)
     {
-        
-        
+
+
         $profesional = Profesional::find($request->Id);
         $profesional->observaciones = $request->obs;
         $profesional->fechaComentario = Carbon::now();
-        $profesional->usuario = $request->user;
+        /* $profesional->usuario = $request->user; */
         $profesional->save();
 
         return redirect('/profesionales');
@@ -209,11 +208,11 @@ class ProfesionalController extends Controller
 
 
 
-    public function confirmDelete($id)
+  /*   public function confirmDelete($id)
     {
         $profesional = Profesional::find($id);
         return view('eliminarProfesional', ['profesional' => $profesional]);
-    }
+    } */
 
 
     /**
@@ -226,6 +225,6 @@ class ProfesionalController extends Controller
     {
         $profesional = Profesional::destroy($request->Id);
         return redirect('/profesionales')
-            ->with(['danger' => "El profesional $request->nameprof $request->surnameprof ha sido eliminado"]);
+            ->with('mensaje', 'eliminado');
     }
 }
